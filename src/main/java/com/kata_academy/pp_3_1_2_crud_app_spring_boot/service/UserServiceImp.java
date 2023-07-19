@@ -27,7 +27,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        if (id == null) {
+            throw new RuntimeException("ID can not be null");
+        } else {
+            return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User isn't found"));
+        }
     }
 
     @Override
